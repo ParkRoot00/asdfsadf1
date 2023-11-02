@@ -10,6 +10,7 @@ public class Server : MonoBehaviour
     private Socket m_listener = null;
     private Socket m_socket = null;
     private State m_state;
+    private int cnt;
 
     enum State
     {
@@ -23,6 +24,7 @@ public class Server : MonoBehaviour
 
     void Start()
     {
+        cnt = 0;
         m_state = State.idle;
         /* 이거 아이피 가져오는 코드였음
         IPHostEntry hostEntry = Dns.GetHostEntry(Dns.GetHostName());
@@ -33,15 +35,23 @@ public class Server : MonoBehaviour
 
     public void startBtn()
     {
-        m_state = State.StartListener;
-
-        IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-        foreach(IPAddress ip in host.AddressList)
+        if(cnt < 1)
         {
-            if(ip.AddressFamily == AddressFamily.InterNetwork)
+            m_state = State.StartListener;
+
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
             {
-                Debug.Log(ip.ToString());
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    Debug.Log(ip.ToString());
+                }
             }
+            cnt += 1;
+        }
+        else
+        {
+            Debug.Log("안됨 나가");
         }
     }
 
