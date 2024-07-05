@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     private Socket m_socket = null;
 
     // Start is called before the first frame update
-    void Start()
+    public void JoinBtn()
     {
 
         m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
